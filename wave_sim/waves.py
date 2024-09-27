@@ -13,10 +13,10 @@ if 'side_title' not in st.session_state:
 def funs():
     st.balloons()
     time.sleep(2)
-    st.session_state['title'] = ":rainbow[Wave sim] :face_with_rolling_eyes::nail_care:"
+    st.session_state['title'] = ":rainbow[Wave sim] :face_with_rolling_eyes::nail_care:✨"
     st.session_state['side_title'] = ":rainbow[Adjust wave parameters]"
 #...to here may have been a massive waste of 45 minutes of my life, but
-#i love rainbows and eye rolls and nail polish  
+#i love rainbows and those three emojis are just ✨the best✨  
 
 st.title(st.session_state['title'])
 st.write("")
