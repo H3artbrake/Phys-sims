@@ -25,9 +25,9 @@ t = np.linspace(0, distance, int(sampling_rate * distance), endpoint=False)
 y = amplitude * np.sin(2 * np.pi * frequency * (t / wavelength))
 
 data = pd.DataFrame({
-    'Distance': t,
+    'Distance (m)': t,
     'Amplitude': y
 })
 
-st.line_chart(data, x='Distance', y='Amplitude', color='#FF4B4B')
+st.line_chart(data, x='Distance (m)', y='Amplitude', color='#FF4B4B')
 
