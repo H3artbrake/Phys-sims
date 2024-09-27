@@ -29,5 +29,5 @@ data = pd.DataFrame({
     'Amplitude': y
 })
 
-st.line_chart(data.set_index('Distance'), use_container_width=True)
+st.line_chart(data, x='Distance', y='Amplitude', color='#FF4B4B')
 
