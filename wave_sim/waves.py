@@ -28,7 +28,9 @@ wavelength = st.sidebar.slider("Select wavelength (m):", min_value=1.0, max_valu
 amplitude = st.sidebar.slider("Select amplitude:", min_value=1.0, max_value=5.0, value=2.0)
 
 st.sidebar.divider()
-st.sidebar.write(f"Speed: {frequency * wavelength} m/s")
+velocity = frequency * wavelength
+round_velocity = round(velocity, 2)
+st.sidebar.write(f"Velocity: {round_velocity} m/s")
 
 distance = 20  # Distance in meters
 sampling_rate = 1000  # Sampling rate
