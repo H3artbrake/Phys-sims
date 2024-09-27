@@ -1,27 +1,41 @@
 import numpy as np
 import pandas as pd
 import streamlit as st
+import time
 
-st.title(":rainbow[Wave sim]")
+#from here...
+if 'title' not in st.session_state:
+    st.session_state['title'] = "Wave sim" 
 
-#st sliders for user input
-frequency = st.slider("Select frequency (Hz):", min_value=1, max_value=10, value=5)
-wavelength = st.slider("Select wavelength (m):", min_value=1, max_value=20, value=15)
-#amplitude = st.slider("Select amplitude:", min_value=0.1, max_value=5.0, value=1.0)
-amplitude = 2 #possible to add slider, but for now, just set it to 2
+if 'side_title' not in st.session_state:
+    st.session_state['side_title'] = "Adjust wave parameters"
 
-st.divider()
+def funs():
+    st.balloons()
+    time.sleep(2)
+    st.session_state['title'] = ":rainbow[Wave sim] :face_with_rolling_eyes::nail_care:"
+    st.session_state['side_title'] = ":rainbow[Adjust wave parameters]"
+#...to here may have been a massive waste of 45 minutes of my life, but
+#i love rainbows and eye rolls and nail polish  
 
-st.write(f"Speed: {frequency * wavelength} m/s")
+st.title(st.session_state['title'])
+st.write("")
 
-st.divider()
+# Set up the sidebar for wave parameters
+st.sidebar.title(st.session_state['side_title'])
+frequency = st.sidebar.slider("Select frequency (Hz):", min_value=1.0, max_value=10.0, value=5.0)
+wavelength = st.sidebar.slider("Select wavelength (m):", min_value=1.0, max_value=20.0, value=15.0)
+amplitude = st.sidebar.slider("Select amplitude:", min_value=1.0, max_value=5.0, value=2.0)
 
-distance = 20 
-sampling_rate = 1000 
+st.sidebar.divider()
+st.sidebar.write(f"Speed: {frequency * wavelength} m/s")
+
+distance = 20  # Distance in meters
+sampling_rate = 1000  # Sampling rate
 
 t = np.linspace(0, distance, int(sampling_rate * distance), endpoint=False)
 
-#gen wave
+#equation for sine wave
 y = amplitude * np.sin(2 * np.pi * frequency * (t / wavelength))
 
 data = pd.DataFrame({
@@ -29,5 +43,7 @@ data = pd.DataFrame({
     'Amplitude': y
 })
 
-st.line_chart(data, x='Distance (m)', y='Amplitude', color='#FF4B4B')
+st.line_chart(data, x='Distance (m)', y='Amplitude', color='#FF4B4B', use_container_width=True)
 
+#hands down, the most important part of the entire project 
+st.button("Click me", on_click=funs, help="hands down, the most important part of the entire project")
