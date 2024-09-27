@@ -11,7 +11,11 @@ wavelength = st.slider("Select wavelength (m):", min_value=1, max_value=20, valu
 #amplitude = st.slider("Select amplitude:", min_value=0.1, max_value=5.0, value=1.0)
 amplitude = 2
 
+st.divider()
+
 st.write(f"Speed: {frequency * wavelength}")
+
+st.divider()
 
 # Duration and sampling rate
 duration = 20  # Duration in seconds or spatial length
