@@ -49,3 +49,5 @@ st.line_chart(data, x='Distance (m)', y='Amplitude', color='#FF4B4B', use_contai
 
 #hands down, the most important part of the entire project 
 st.button("Click me", on_click=funs, help="hands down, the most important part of the entire project")
+
+print(frequency*wavelength)
