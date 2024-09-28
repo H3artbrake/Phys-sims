@@ -16,7 +16,7 @@ def funs():
     st.session_state['title'] = ":rainbow[Wave sim] :face_with_rolling_eyes:✨"
     st.session_state['side_title'] = ":rainbow[Adjust wave parameters]"
 #...to here may have been a massive waste of 45 minutes of my life, but
-#i love colors and those three emojis are just ✨the best✨  
+#i love colors and those two emojis are just the best 
 
 st.title(st.session_state['title'])
 st.write("")
@@ -49,4 +49,3 @@ st.line_chart(data, x='Distance (m)', y='Amplitude', color='#FF4B4B', use_contai
 
 #hands down, the most important part of the entire project 
 st.button("Click me", on_click=funs, help="hands down, the most important part of the entire project")
-print("hello")
