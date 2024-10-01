@@ -27,7 +27,8 @@ amplitude = st.sidebar.slider("Select amplitude:", min_value=1.0, max_value=5.0,
 st.sidebar.divider()
 velocity = frequency * wavelength
 round_velocity = round(velocity, 2)
-st.sidebar.write(f"Velocity: {round_velocity} m/s")
+st.sidebar.latex(r"v = f \times \lambda")
+st.sidebar.latex(f"v = {round_velocity} m/s")
 
 distance = 20  # Distance in meters
 sampling_rate = 1000  # Sampling rate
