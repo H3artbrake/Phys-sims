@@ -47,6 +47,8 @@ def create_lens_plot(focal_length, arrow_height, arrow_position):
     # Dotted line from intersection to x-axis
     ax.plot([intersection_x, intersection_x], [intersection_y, 0], 'r--', linewidth=1)
 
+    ax.scatter(focal_length, 0, color='red', marker='x', s=100, linewidths=2)
+
     # x & y axis
     ax.axvline(x=0, color='black', linewidth=1)
     ax.axhline(y=0, color='black', linewidth=1)
@@ -58,7 +60,8 @@ def create_lens_plot(focal_length, arrow_height, arrow_position):
     # Update the Streamlit figure
     fig.pyplot(plt)
 
-    return fig
+    return fig, intersection_x, intersection_y
+
 # Streamlit app
 st.title("Convex Lens Simulation")
 
@@ -69,10 +72,9 @@ arrow_height = st.sidebar.slider("Arrow Height", 1.0, 10.0, 5.0)
 arrow_position = st.sidebar.slider("Arrow Position", -10.0, -1.0, -4.0)
 
 # Create and display the plot
-fig = create_lens_plot(focal_length, arrow_height, arrow_position)
+fig, intersection_x, intersection_y = create_lens_plot(focal_length, arrow_height, arrow_position)
 
 # Additional information
 st.sidebar.divider()
 st.sidebar.write(f"Focal Length: {focal_length:.1f}")
-st.sidebar.write(f"Arrow Height: {arrow_height:.1f}")
-st.sidebar.write(f"Arrow Position: {arrow_position:.1f}")
+st.sidebar.write(f"Image Position: {intersection_x:.2f}, {intersection_y:.2f}")
