@@ -60,7 +60,7 @@ def create_lens_plot(focal_length, arrow_height, arrow_position):
 
     return fig
 # Streamlit app
-st.title("Concave Lens Simulation")
+st.title("Convex Lens Simulation")
 
 # Sidebar for user inputs
 st.sidebar.header("Lens Parameters")
