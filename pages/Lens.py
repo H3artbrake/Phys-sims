@@ -80,6 +80,8 @@ fig, intersection_x, intersection_y = create_lens_plot(focal_length, arrow_heigh
 st.sidebar.divider()
 st.sidebar.write(f"Focal Length: {focal_length:.1f}")
 st.sidebar.write(f"Image Position: {intersection_x:.2f}, {intersection_y:.2f}")
-st.sidebar.latex(r"Magnification = \frac{image \ size}{actual \ size}")
+magnification = intersection_y/arrow_height
+st.sidebar.latex(r"M = \frac{I}{A}")
+st.sidebar.latex(f"M = {magnification:.2f}")
                  
                  
