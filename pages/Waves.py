@@ -49,6 +49,6 @@ st.line_chart(data, x='Distance (m)', y='Amplitude', color='#FF4B4B', use_contai
 st.button("Click me", on_click=funs, help="hands down, the most important part of the entire project")
 
 
-#error handling for lens
 #lines if image on same side - virtual images for lens
+#scale graph
 #magnification scale

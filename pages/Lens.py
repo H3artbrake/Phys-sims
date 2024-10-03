@@ -39,13 +39,18 @@ def create_lens_plot(focal_length, arrow_height, arrow_position):
 
     line1 = (arrow_position, arrow_height, 0, 0)
     line2 = (0, arrow_height, focal_length, 0)
-    intersection_x, intersection_y = line_intersection(line1, line2)
+    try:
+        intersection_x, intersection_y = line_intersection(line1, line2)
+        # Plot intersection point
+        ax.plot(intersection_x, intersection_y, 'ro', markersize=5)
 
-    # Plot intersection point
-    ax.plot(intersection_x, intersection_y, 'ro', markersize=5)
+        # Dotted line from intersection to x-axis
+        ax.plot([intersection_x, intersection_x], [intersection_y, 0], 'r--', linewidth=1)
+    except:
+        st.error("No image formed because object position is equal to focal length.")
+        intersection_x, intersection_y = 0, 0
 
-    # Dotted line from intersection to x-axis
-    ax.plot([intersection_x, intersection_x], [intersection_y, 0], 'r--', linewidth=1)
+    #if intersection_y<0:
 
     ax.scatter(focal_length, 0, color='red', marker='x', s=100, linewidths=2)
 
@@ -66,8 +71,8 @@ st.title("Convex Lens Simulation")
 
 st.sidebar.header("Lens Parameters")
 focal_length = st.sidebar.slider("Focal Length", 1.0, 5.0, 2.0)
-arrow_height = st.sidebar.slider("Arrow Height", 1.0, 10.0, 5.0)
-arrow_position = st.sidebar.slider("Arrow Position", -10.0, -1.0, -4.0)
+arrow_height = st.sidebar.slider("Object Height", 1.0, 10.0, 5.0)
+arrow_position = st.sidebar.slider("Object Position", -10.0, -1.0, -4.0)
 
 fig, intersection_x, intersection_y = create_lens_plot(focal_length, arrow_height, arrow_position)
 
@@ -75,3 +80,6 @@ fig, intersection_x, intersection_y = create_lens_plot(focal_length, arrow_heigh
 st.sidebar.divider()
 st.sidebar.write(f"Focal Length: {focal_length:.1f}")
 st.sidebar.write(f"Image Position: {intersection_x:.2f}, {intersection_y:.2f}")
+st.sidebar.latex(r"Magnification = \frac{image \ size}{actual \ size}")
+                 
+                 
