@@ -46,11 +46,18 @@ def create_lens_plot(focal_length, arrow_height, arrow_position):
 
         # Dotted line from intersection to x-axis
         ax.plot([intersection_x, intersection_x], [intersection_y, 0], 'r--', linewidth=1)
+
+        # Extend lines to top of image if intersection is behind the lens
+        if intersection_x < 0:
+            # Extend line from arrow top through (0,0)
+            ax.plot([x2, intersection_x], [y2, intersection_y], color='black')
+            
+            # Extend line from lens to focal point
+            ax.plot([0, intersection_x], [arrow_height, intersection_y], color='black')
     except:
         st.error("No image formed because object position is equal to focal length.")
         intersection_x, intersection_y = 0, 0
 
-    #if intersection_y<0:
 
     ax.scatter(focal_length, 0, color='red', marker='x', s=100, linewidths=2)
 
