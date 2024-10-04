@@ -50,5 +50,4 @@ st.button("Click me", on_click=funs, help="hands down, the most important part o
 
 
 #lines if image on same side - virtual images for lens
-#scale graph
 #magnification scale

@@ -15,7 +15,7 @@ def create_lens_plot(focal_length, arrow_height, arrow_position):
     x1, y1 = arrow_position, arrow_height
     x2, y2 = 0, 0
     ax.plot([x1, x2], [y1, y2], color='black')
-    ax.plot([x2, 20], [y2, y2 - (x2 - 20) * (y2 - y1) / (x2 - x1)], color='black')
+    ax.plot([x2, 1000], [y2, y2 - (x2 - 1000) * (y2 - y1) / (x2 - x1)], color='black')
 
     # Line from arrow top to lens
     x2, y2 = 0, arrow_height
@@ -25,7 +25,7 @@ def create_lens_plot(focal_length, arrow_height, arrow_position):
     x1, y1 = 0, arrow_height
     x2, y2 = focal_length, 0
     ax.plot([x1, x2], [y1, y2], color='black')
-    ax.plot([x2, 20], [y2, y2 - (x2 - 20) * (y2 - y1) / (x2 - x1)], color='black')
+    ax.plot([x2, 1000], [y2, y2 - (x2 - 1000) * (y2 - y1) / (x2 - x1)], color='black')
 
     # Calculate intersection point
     def line_intersection(line1, line2):
@@ -58,9 +58,17 @@ def create_lens_plot(focal_length, arrow_height, arrow_position):
     ax.axvline(x=0, color='black', linewidth=1)
     ax.axhline(y=0, color='black', linewidth=1)
 
-    # Graph limits
-    ax.set_xlim(-11, 11)
-    ax.set_ylim(-11, 11)
+    if intersection_x>0:
+        # Graph limits
+        ax.set_xlim(-11, intersection_x+4)
+        ax.set_ylim(intersection_y-4, 11)
+    elif intersection_x<0:
+        ax.set_xlim(intersection_x-4, 11)
+        ax.set_ylim(-11, intersection_y+4)
+    else:
+        ax.set_xlim(-11, 11)
+        ax.set_ylim(-11, 11)
+
 
     fig.pyplot(plt)
 
@@ -70,7 +78,7 @@ def create_lens_plot(focal_length, arrow_height, arrow_position):
 st.title("Convex Lens Simulation")
 
 st.sidebar.header("Lens Parameters")
-focal_length = st.sidebar.slider("Focal Length", 1.0, 5.0, 2.0)
+focal_length = st.sidebar.slider("Focal Length", 1.0, 10.0, 2.0)
 arrow_height = st.sidebar.slider("Object Height", 1.0, 10.0, 5.0)
 arrow_position = st.sidebar.slider("Object Position", -10.0, -1.0, -4.0)
 
