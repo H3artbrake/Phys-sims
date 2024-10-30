@@ -96,5 +96,3 @@ st.sidebar.write(f"Image Position: {intersection_x:.2f}, {intersection_y:.2f}")
 magnification = intersection_y/arrow_height
 st.sidebar.latex(r"M = \frac{I}{A}")
 st.sidebar.latex(f"M = {magnification:.2f}")
-                 
-                 
