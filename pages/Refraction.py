@@ -4,16 +4,18 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Arc
 import numpy as np
 
-def plot_graph(medium, theta_i, n):
+def plot_graph(medium1, medium2, theta_i, n):
     #initialize graph
     fig, ax = plt.subplots()
     ax.set_xlim(0,10)
     ax.set_ylim(0,10)
 
     #the lines i need at the start
-    ax.axvline(x=5, color="black",  label=medium)
+    ax.axvline(x=5, color="black",  label="Medium change")
     ax.axhline(y=5, color="lightseagreen", label="Normal")
 
+    ax.text(2,9,medium1)
+    ax.text(7,9, medium2)
     #incident ray
     slope_i = np.tan(np.radians(theta_i))
     intercept = 5 - slope_i * 5
@@ -67,11 +69,55 @@ def plot_graph(medium, theta_i, n):
     ax.legend()
     return fig
 
+def sidebar_medium_selection(refractive_indexes):
+    medium1 = st.sidebar.selectbox(
+        "Medium 1",
+        ("Acrylic", "Air", "Diamond", "Glass", "Vacuum", "Water"), 
+        1
+    )
+    n_1 = refractive_indexes[medium1]
+    st.sidebar.write(f"Refractive index = {n_1}")
+    
+    medium2 = st.sidebar.selectbox(
+        "Medium 2",
+        ("Acrylic", "Air", "Diamond", "Glass", "Vacuum", "Water"),
+        2
+    )
+    n_2=refractive_indexes[medium2]
+    st.sidebar.write(f"Refractive index = {n_2}")
+
+    relative_n = n_2/n_1
+    st.sidebar.write(f"Relative refractive index = {relative_n:.2f}")
+
+    st.sidebar.divider()
+
+    theta_i = st.sidebar.slider("Incident ray angle", -90, 90, 30)
+    return medium1, medium2, theta_i, relative_n, n_1, n_2
+
+def showing_the_math(n_1, n_2, theta_i, relative_n):
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.subheader("Relative refractive index")
+        st.latex(r"n = \frac{n_{2}}{n_{1}}") 
+        st.latex(fr"n = \frac{{{n_2}}}{{{n_1}}}")
+        st.latex(fr"n={relative_n:.2f}")
+
+    with col2:
+        st.subheader("Angle of refraction:")
+        st.latex(r"n=\frac{\sin i}{\sin r}")
+        st.latex(r"\sin r = \frac{\sin i}{n}")
+        st.latex(r"r = \arcsin\left(\frac{\sin i}{n}\right)")
+        st.latex(fr"r = \arcsin\left(\frac{{\sin({theta_i})}}{{{relative_n:.2f}}}\right)")    
+        st.latex(fr"r = {np.degrees(np.arcsin((np.sin(np.radians(theta_i))/relative_n))):.2f}")
+
 refractive_indexes = {
     "Glass": 1.52,
     "Water": 1.33,
     "Diamond": 2.42,
-    "Acrylic": 1.49
+    "Acrylic": 1.49, 
+    "Air":1,
+    "Vacuum" :1,
 }
 
 st.title("Refraction")
@@ -79,21 +125,10 @@ st.title("Refraction")
 #Sidebar stuff
 #params
 st.sidebar.title("Parameters")
-medium = st.sidebar.selectbox(
-    "Medium",
-    ("Acrylic", "Diamond", "Glass", "Water"),
-)
-st.sidebar.write(f"Refractive index = {refractive_indexes[medium]}")
-theta_i = st.sidebar.slider("Incident ray angle", -90, 90, 30)
-
-st.sidebar.divider()
-
-#math
-st.sidebar.latex(r"n=\frac{\sin i}{\sin r}")
-st.sidebar.latex(r"\sin r = \frac{\sin i}{n}")
-st.sidebar.latex(r"r = \arcsin\left(\frac{\sin i}{n}\right)")
-st.sidebar.latex(fr"r = \arcsin\left(\frac{{\sin({theta_i})}}{{{refractive_indexes[medium]}}}\right)")
+medium1, medium2, theta_i, relative_n, n_1, n_2 = sidebar_medium_selection(refractive_indexes)
 
 # Display the plot in Streamlit
-fig = plot_graph(medium, theta_i, refractive_indexes[medium])
+fig = plot_graph(medium1, medium2, theta_i, relative_n)
 st.pyplot(fig)
+    
+showing_the_math(n_1, n_2, theta_i, relative_n)
