@@ -1,4 +1,3 @@
-# Import the libraries
 import streamlit as st
 import matplotlib.pyplot as plt
 from matplotlib.patches import Arc
@@ -12,10 +11,11 @@ def plot_graph(medium1, medium2, theta_i, n):
 
     #the lines i need at the start
     ax.axvline(x=5, color="black",  label="Medium change")
-    ax.axhline(y=5, color="lightseagreen", label="Normal")
+    ax.axhline(y=5, color="lightseagreen", label="Normal", linestyle="--")
 
     ax.text(2,9,medium1)
     ax.text(7,9, medium2)
+
     #incident ray
     slope_i = np.tan(np.radians(theta_i))
     intercept = 5 - slope_i * 5
